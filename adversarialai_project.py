@@ -7,25 +7,27 @@ Original file is located at
     https://colab.research.google.com/drive/1KsPR5B1u6loIK9tWWwGYNG9h3BThQTup
 """
 
-#importing all the necessary library here
+#import all the necessary library
 import pandas as pd
 
 #reading CSV File or Upload
 tableData = pd.read_csv('VolumeAndNVbySymbol_wRand.csv')
 #print(tableData.describe)
-print(tableData.dtypes)
+print(f"All the data types: {tableData.dtypes}")
 
-#getting the number of rows
+#getting and printing the number of rows
 totalRows = len(tableData)
-print(totalRows)
+print(f"Total number of rows: {totalRows}")
 # it is printing 643214 which is correct
 
 #setting pandas to display values in decimal notation
 pd.set_option('display.float_format','{:.2f}'.format)
 
-#get the numerical column only
+#processing numerical column
+#printing The average value of each numerical column
 numericColumns = tableData.select_dtypes(include=['number']).mean()
-print(numericColumns)
+for column, value in numericColumns.items():
+    print(f"Average of {column} is {value: .2f}")
 
 #section to process time based column
 tableData['Time'] = pd.to_datetime(tableData['Time'])
